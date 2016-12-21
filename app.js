@@ -10,7 +10,7 @@ var io = socketio.listen(server);
 
 io.sockets.on('connection', function(socket) {
     socket.on('changeComponent', function(data) {
-        io.sockets.emit('changeComponent', data);
+        socket.broadcast.emit('changeComponent', data);
     });
 });
 
