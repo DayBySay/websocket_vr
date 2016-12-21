@@ -8,12 +8,23 @@
         <script type="text/javascript">
             var socket = io.connect();
 
+            socket.on("changeComponent", function(data){
+                if (data.name == "position") {
+                    var el = document.getElementById(data.id);
+                    var position = data.value.x + " " + data.value.y + " " + data.value.z + " ";
+                    el.setAttribute("position", position);
+                }
+            });
+
+            function changeComponent(id, name, value){
+                socket.emit("changeComponent", {"id": id, "name": name, "value": value});
+            }
+
             AFRAME.registerComponent('position_listener', {
                 init: function() {
+                    var id = this.el.id;
                     this.el.addEventListener("componentchanged", function (evt){
-                        if(evt.name === "position") {
-                            console.log("changed");
-                        }
+                        changeComponent(id, evt.detail.name,evt.detail.newData);
                     });
                 }
             });

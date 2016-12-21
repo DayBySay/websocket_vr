@@ -9,8 +9,8 @@ var server = http.createServer(function(req, res) {
 var io = socketio.listen(server);
 
 io.sockets.on('connection', function(socket) {
-    socket.on('client_to_server', function(data) {
-        io.sockets.emit('server_to_client', {value : data.value});
+    socket.on('changeComponent', function(data) {
+        io.sockets.emit('changeComponent', data);
     });
 });
 
