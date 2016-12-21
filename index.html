@@ -4,10 +4,15 @@
         <meta charset="utf-8">
         <title>websocket vr</title>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    </head>
-    <body>
+		<script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
         <script type="text/javascript">
             var socket = io.connect();
         </script>
+	</head>
+	<body>
+		<a-scene>
+			<a-box id="box" cursor-listener position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+			<a-sky color="#ECECEC"></a-sky>
+		</a-scene>
     </body>
 </html>
