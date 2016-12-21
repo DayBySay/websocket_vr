@@ -7,11 +7,21 @@
 		<script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
         <script type="text/javascript">
             var socket = io.connect();
+
+            AFRAME.registerComponent('position_listener', {
+                init: function() {
+                    this.el.addEventListener("componentchanged", function (evt){
+                        if(evt.name === "position") {
+                            console.log("changed");
+                        }
+                    });
+                }
+            });
         </script>
 	</head>
 	<body>
 		<a-scene>
-			<a-box id="box" cursor-listener position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+			<a-box id="box" position_listener position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
 			<a-sky color="#ECECEC"></a-sky>
 		</a-scene>
     </body>
