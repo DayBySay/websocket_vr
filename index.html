@@ -10,9 +10,11 @@
 
             socket.on("changeComponent", function(data){
                 if (data.name == "position") {
+                    removePositionListner(data.id);
                     var el = document.getElementById(data.id);
                     var position = data.value.x + " " + data.value.y + " " + data.value.z + " ";
                     el.setAttribute("position", position);
+                    addPositionListner(data.id);
                 }
             });
 
@@ -23,11 +25,19 @@
             AFRAME.registerComponent('position_listener', {
                 init: function() {
                     var id = this.el.id;
-                    this.el.addEventListener("componentchanged", function (evt){
-                        changeComponent(id, evt.detail.name,evt.detail.newData);
-                    });
+                    addPositionListner(id);
                 }
             });
+
+function addPositionListner(id) {
+                    document.getElementById(id).addEventListener("componentchanged", function (evt){
+                        changeComponent(id, evt.detail.name,evt.detail.newData);
+                    });
+} 
+
+function removePositionListner(id) {
+    document.getElementById(id).removeEventListener("componentchanged", arguments.callee, false);
+}
         </script>
 	</head>
 	<body>
