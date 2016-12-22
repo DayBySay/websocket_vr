@@ -19,12 +19,24 @@
             function move_box(id, name, value){
                 socket.emit("move_box", {"id": id, "name": name, "value": value});
             }
+
+            AFRAME.registerComponent('cursor-listener', {
+                init: function () {
+                    this.el.addEventListener("click", function (evt) {
+                        console.log(evt);
+                    });
+                }
+            });
         </script>
 	</head>
 	<body>
-		<a-scene>
+        <a-scene>
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
 			<a-box id="box" position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
 			<a-sky color="#ECECEC"></a-sky>
+            <a-plane cursor-listener position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
 		</a-scene>
     </body>
 </html>
