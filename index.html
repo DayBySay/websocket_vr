@@ -8,7 +8,7 @@
         <script type="text/javascript">
             var socket = io.connect();
 
-            socket.on("changeComponent", function(data){
+            socket.on("move_box", function(data){
                 if (data.name == "position") {
                     var el = document.getElementById(data.id);
                     var position = data.value.x + " " + data.value.y + " " + data.value.z + " ";
@@ -16,23 +16,14 @@
                 }
             });
 
-            function changeComponent(id, name, value){
-                socket.emit("changeComponent", {"id": id, "name": name, "value": value});
+            function move_box(id, name, value){
+                socket.emit("move_box", {"id": id, "name": name, "value": value});
             }
-
-            AFRAME.registerComponent('position_listener', {
-                init: function() {
-                    var id = this.el.id;
-                    document.getElementById(id).addEventListener("componentchanged", function (evt){
-                        changeComponent(id, evt.detail.name,evt.detail.newData);
-                    });
-                }
-            });
         </script>
 	</head>
 	<body>
 		<a-scene>
-			<a-box id="box" position_listener position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+			<a-box id="box" position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
 			<a-sky color="#ECECEC"></a-sky>
 		</a-scene>
     </body>
