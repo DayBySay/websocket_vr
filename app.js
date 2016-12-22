@@ -10,7 +10,7 @@ var io = socketio.listen(server);
 
 io.sockets.on('connection', function(socket) {
     socket.on('move_box', function(data) {
-        socket.broadcast.emit('changeComponent', data);
+        socket.broadcast.emit('move_box', data);
     });
 });
 

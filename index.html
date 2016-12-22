@@ -9,21 +9,28 @@
             var socket = io.connect();
 
             socket.on("move_box", function(data){
-                if (data.name == "position") {
-                    var el = document.getElementById(data.id);
-                    var position = data.value.x + " " + data.value.y + " " + data.value.z + " ";
-                    el.setAttribute("position", position);
-                }
+                listen_move_box(data.position);
             });
 
-            function move_box(id, name, value){
-                socket.emit("move_box", {"id": id, "name": name, "value": value});
+            function listen_move_box(position) {
+                move_box(position);
+            }
+
+            function emit_move_box(position){
+                socket.emit("move_box", {"position": position});
+            }
+
+            function move_box(position) {
+                var el = document.getElementById("box");
+                var position = position.x + " " + position.y + " " + position.z + " ";
+                el.setAttribute("position", position);
             }
 
             AFRAME.registerComponent('cursor-listener', {
                 init: function () {
                     this.el.addEventListener("click", function (evt) {
-                        console.log(evt);
+                        emit_move_box(evt.detail.intersection.point);
+                        listen_move_box(evt.detail.intersection.point);
                     });
                 }
             });
