@@ -5,73 +5,72 @@
         <title>websocket vr</title>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
         <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
-		<script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+        <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
         <script type="text/javascript">
             var socket = io.connect();
-			var player_id;
+            var player_id;
 
-socket.on("set_player", function(player) {
-	player_id = player;
-	var playersCamera = document.querySelector("#" + player_id);
-	playersCamera.setAttribute("camera", "active", true);
-});
-
-socket.on("click-square", function(square_id, player_id) {
-	click_square(square_id, player_id);
-});
-
-function login() {
-	socket.emit("connected");
-}
-
-function click_square(square_id, player_id) {
-	console.log(square_id);
-	var image = player_id === "player1" ? "#circle" : "#cross";
-	document.querySelector("#" + square_id).setAttribute("src", image);
-}
-
-AFRAME.registerComponent('cursor-listener', {
-	init: function () {
-		this.el.addEventListener("click", function (evt) {
-			click_square(this.id, player_id);
-			socket.emit("click-square", this.id, player_id);
-		});
-	}
-});
-
-login();
+            socket.on("set_player", function(player) {
+                player_id = player;
+                var playersCamera = document.querySelector("#" + player_id);
+                playersCamera.setAttribute("camera", "active", true);
+            });
+            
+            socket.on("click-square", function(square_id, player_id) {
+                click_square(square_id, player_id);
+            });
+            
+            function login() {
+                socket.emit("connected");
+            }
+            
+            function click_square(square_id, player_id) {
+                var image = player_id === "player1" ? "#circle" : "#cross";
+                document.querySelector("#" + square_id).setAttribute("src", image);
+            }
+            
+            AFRAME.registerComponent('cursor-listener', {
+                init: function () {
+                    this.el.addEventListener("click", function (evt) {
+                        click_square(this.id, player_id);
+                        socket.emit("click-square", this.id, player_id);
+                    });
+                }
+            });
+            
+            login();
         </script>
     </head>
     <body>
         <a-scene>
-			<a-assets>
-				<img src="http://i.imgur.com/7YnjGfI.png" id="square" crossorigin="anonymous">
-				<img src="http://i.imgur.com/vxesSQm.png" id="circle" crossorigin="anonymous">
-				<img src="http://i.imgur.com/EdymqIg.png" id="cross" crossorigin="anonymous">
-			</a-assets>
+            <a-assets>
+                <img src="http://i.imgur.com/7YnjGfI.png" id="square" crossorigin="anonymous">
+                <img src="http://i.imgur.com/vxesSQm.png" id="circle" crossorigin="anonymous">
+                <img src="http://i.imgur.com/EdymqIg.png" id="cross" crossorigin="anonymous">
+            </a-assets>
             <a-camera position="0 1.6 -4" rotation="0 180 0" id="player1">
                 <a-cursor></a-cursor>
-				<a-box color="#998877"></a-box>
-				<a-entity position="0 1 0" scale="3 3 0" rotation="0 180 0" bmfont-text="text: Player1; color: black;">
+                <a-box color="#998877"></a-box>
+                <a-entity position="0 1 0" scale="3 3 0" rotation="0 180 0" bmfont-text="text: Player1; color: black;">
             </a-camera>
             <a-camera position="0 1.6 4" id="player2">
                 <a-cursor></a-cursor>
-				<a-cylinder color="#114499" ></a-cylinder>
-				<a-entity position="0 1 0" scale="3 3 0" rotation="0 180 0" bmfont-text="text: Player2; color: black;">
+                <a-cylinder color="#114499" ></a-cylinder>
+                <a-entity position="0 1 0" scale="3 3 0" rotation="0 180 0" bmfont-text="text: Player2; color: black;">
             </a-camera>
 
             <a-sky color="#ECECEC"></a-sky>
-			<a-entity id="square">
-				<a-plane id="square0" cursor-listener src="#square" position="-1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square1" cursor-listener src="#square" position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square2" cursor-listener src="#square" position="-1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square3" cursor-listener src="#square" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square4" cursor-listener src="#square" position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square5" cursor-listener src="#square" position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square6" cursor-listener src="#square" position="1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square7" cursor-listener src="#square" position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square8" cursor-listener src="#square" position="1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
-			</a-entity>
+            <a-entity id="square">
+                <a-plane id="square0" cursor-listener src="#square" position="-1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square1" cursor-listener src="#square" position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square2" cursor-listener src="#square" position="-1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square3" cursor-listener src="#square" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square4" cursor-listener src="#square" position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square5" cursor-listener src="#square" position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square6" cursor-listener src="#square" position="1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square7" cursor-listener src="#square" position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+                <a-plane id="square8" cursor-listener src="#square" position="1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+            </a-entity>
         </a-scene>
     </body>
 </html>

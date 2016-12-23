@@ -10,34 +10,34 @@ var io = socketio.listen(server);
 var player1, player2;
 
 io.sockets.on('connection', function(socket) {
-	socket.on("connected", function () {
-		if (player1 === undefined) {
-			player1 = socket.id;
-			io.to(socket.id).emit("set_player", "player1")
-			return;
-		}
+    socket.on("connected", function () {
+        if (player1 === undefined) {
+            player1 = socket.id;
+            io.to(socket.id).emit("set_player", "player1")
+            return;
+        }
 
-		if (player2 === undefined) {
-			player2 = socket.id;
-			io.to(socket.id).emit("set_player", "player2")
-			return;
-		}
-	});
+        if (player2 === undefined) {
+            player2 = socket.id;
+            io.to(socket.id).emit("set_player", "player2")
+            return;
+        }
+    });
 
-	socket.on("disconnect", function() {
-		if (socket.id === player1) {
-			player1 = undefined;
-			return;
-		}
+    socket.on("disconnect", function() {
+        if (socket.id === player1) {
+            player1 = undefined;
+            return;
+        }
 
-		if (socket.id == player2) {
-			player2 = undefined;
-			return;
-		}
-	});
+        if (socket.id == player2) {
+            player2 = undefined;
+            return;
+        }
+    });
 
-	socket.on("click-square", function(square_id, player_id) {
-		socket.broadcast.emit("click-square",square_id, player_id);
-	});
+    socket.on("click-square", function(square_id, player_id) {
+        socket.broadcast.emit("click-square",square_id, player_id);
+    });
 });
 
