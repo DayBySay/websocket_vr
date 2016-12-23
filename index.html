@@ -13,7 +13,8 @@
             });
 
 socket.on("set_player", function(player) {
-	console.log("I am " + player);
+	var playersCamera = document.querySelector("#" + player);
+	playersCamera.setAttribute("camera", "active", true);
 });
 
 login();
