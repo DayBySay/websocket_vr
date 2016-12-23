@@ -38,7 +38,17 @@ login();
             </a-camera>
 
             <a-sky color="#ECECEC"></a-sky>
-            <a-plane src="#square" position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#EEEEEE"></a-plane>
+			<a-entity id="square">
+				<a-plane src="#square" position="-1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="-1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane src="#square" position="1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+			</a-entity>
         </a-scene>
     </body>
 </html>
