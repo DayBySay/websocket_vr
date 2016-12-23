@@ -35,9 +35,5 @@ io.sockets.on('connection', function(socket) {
 			return;
 		}
 	});
-
-    socket.on('move_box', function(data) {
-        socket.broadcast.emit('move_box', data);
-    });
 });
 
