@@ -23,6 +23,9 @@ login();
     </head>
     <body>
         <a-scene>
+			<a-assets>
+				<img src="http://i.imgur.com/7YnjGfI.png" id="square" crossorigin="anonymous">
+			</a-assets>
             <a-camera position="0 1.6 -4" rotation="0 180 0" id="player1">
                 <a-cursor></a-cursor>
 				<a-box color="#998877"></a-box>
@@ -35,7 +38,7 @@ login();
             </a-camera>
 
             <a-sky color="#ECECEC"></a-sky>
-            <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+            <a-plane src="#square" position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#EEEEEE"></a-plane>
         </a-scene>
     </body>
 </html>
