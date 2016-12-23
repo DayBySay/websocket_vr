@@ -8,9 +8,11 @@
 		<script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
         <script type="text/javascript">
             var socket = io.connect();
+			var playerID;
 
 socket.on("set_player", function(player) {
-	var playersCamera = document.querySelector("#" + player);
+	playerID = player;
+	var playersCamera = document.querySelector("#" + playerID);
 	playersCamera.setAttribute("camera", "active", true);
 });
 
@@ -19,6 +21,15 @@ function login() {
 }
 
 login();
+
+AFRAME.registerComponent('cursor-listener', {
+	init: function () {
+		this.el.addEventListener("click", function (evt) {
+			var text = (playerID === "player1") ? "O" : "X";
+			this.setAttribute("bmfont-text", "text", text);
+		});
+	}
+});
         </script>
     </head>
     <body>
