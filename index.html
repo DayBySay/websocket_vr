@@ -9,31 +9,45 @@
             var socket = io.connect();
 
             socket.on("move_box", function(data){
-                listen_move_box(data.position);
+                move_box(data.position);
             });
-
-            function listen_move_box(position) {
-                move_box(position);
-            }
 
             function emit_move_box(position){
                 socket.emit("move_box", {"position": position});
             }
 
-            function move_box(position) {
+            function move_box(positionObj) {
                 var el = document.getElementById("box");
-                var x = position.x;
-                var z = position.z;
-                var y = position.y + 0.5;
-                var position = x + " " + y + " " + z + " ";
-                el.setAttribute("position", position);
+				positionObj.y += 0.5;
+
+				var from = positionObjToPositionText(el.getAttribute("position"));
+				var to = positionObjToPositionText(positionObj);
+
+				var animationNode = positionAnimationNode(from, to);
+
+				el.appendChild(animationNode);
             }
+
+			function positionAnimationNode(from, to) {
+				var animationNode = document.createElement("a-animation");
+				animationNode.setAttribute("attribute", "position");
+				animationNode.setAttribute("from", from);
+				animationNode.setAttribute("to", to);
+				return animationNode;
+			}
+
+			function positionObjToPositionText(positionObj) {
+                var x = positionObj.x;
+                var z = positionObj.z;
+                var y = positionObj.y;
+                return x + " " + y + " " + z + " ";
+			}
 
             AFRAME.registerComponent('cursor-listener', {
                 init: function () {
                     this.el.addEventListener("click", function (evt) {
                         emit_move_box(evt.detail.intersection.point);
-                        listen_move_box(evt.detail.intersection.point);
+                        move_box(evt.detail.intersection.point);
                     });
                 }
             });
