@@ -12,6 +12,16 @@
                 move_box(data.position);
             });
 
+socket.on("set_player", function(player) {
+	console.log("I am " + player);
+});
+
+login();
+
+function login() {
+	socket.emit("connected");
+}
+
             function emit_move_box(position){
                 socket.emit("move_box", {"position": position});
             }
