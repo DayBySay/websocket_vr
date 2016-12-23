@@ -26,11 +26,9 @@ function login() {
 
 function click_square(square_id, player_id) {
 	console.log(square_id);
-	var text = (player_id === "player1") ? "O" : "X";
-	document.querySelector("#" + square_id).setAttribute("bmfont-text", "text", text);
+	var image = player_id === "player1" ? "#circle" : "#cross";
+	document.querySelector("#" + square_id).setAttribute("src", image);
 }
-
-login();
 
 AFRAME.registerComponent('cursor-listener', {
 	init: function () {
@@ -40,6 +38,8 @@ AFRAME.registerComponent('cursor-listener', {
 		});
 	}
 });
+
+login();
         </script>
     </head>
     <body>
@@ -62,15 +62,15 @@ AFRAME.registerComponent('cursor-listener', {
 
             <a-sky color="#ECECEC"></a-sky>
 			<a-entity id="square">
-				<a-plane id="square0" cursor-listener src="#square" position="-1 0 -1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square1" cursor-listener src="#square" position="-1 0 0" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square2" cursor-listener src="#square" position="-1 0 1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square3" cursor-listener src="#square" position="0 0 -1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square4" cursor-listener src="#square" position="0 0 0" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square5" cursor-listener src="#square" position="0 0 1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square6" cursor-listener src="#square" position="1 0 -1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square7" cursor-listener src="#square" position="1 0 0" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
-				<a-plane id="square8" cursor-listener src="#square" position="1 0 1" rotation="-90 0 0" bmfont-text="" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square0" cursor-listener src="#square" position="-1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square1" cursor-listener src="#square" position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square2" cursor-listener src="#square" position="-1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square3" cursor-listener src="#square" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square4" cursor-listener src="#square" position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square5" cursor-listener src="#square" position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square6" cursor-listener src="#square" position="1 0 -1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square7" cursor-listener src="#square" position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
+				<a-plane id="square8" cursor-listener src="#square" position="1 0 1" rotation="-90 0 0" width="1" height="1" color="#EEEEEE"></a-plane>
 			</a-entity>
         </a-scene>
     </body>
