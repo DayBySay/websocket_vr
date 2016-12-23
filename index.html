@@ -22,7 +22,10 @@
 
             function move_box(position) {
                 var el = document.getElementById("box");
-                var position = position.x + " " + position.y + " " + position.z + " ";
+                var x = position.x;
+                var z = position.z;
+                var y = position.y + 0.5;
+                var position = x + " " + y + " " + z + " ";
                 el.setAttribute("position", position);
             }
 
