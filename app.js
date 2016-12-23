@@ -35,5 +35,9 @@ io.sockets.on('connection', function(socket) {
 			return;
 		}
 	});
+
+	socket.on("click-square", function(square_id, player_id) {
+		socket.broadcast.emit("click-square",square_id, player_id);
+	});
 });
 
