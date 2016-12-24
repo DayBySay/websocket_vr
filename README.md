@@ -1,12 +1,13 @@
 websocket_vr
 ======
 
-# install
+# 開発環境構築
 ```
 make install
 ```
 
-# server
+# 動作確認
 ```
 make server
+open http://localhost:3000
 ```
