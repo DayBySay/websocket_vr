@@ -6,3 +6,6 @@ server:
 
 deploy:
 	git push heroku master
+
+proc:
+	foreman start
