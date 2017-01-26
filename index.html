@@ -7,6 +7,15 @@
         <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
         <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
         <script type="text/javascript">
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+			var localStream;
+
+			navigator.getUserMedia({audio: true, video: false}, function(stream){
+				localStream = stream;
+			}, function(error) {
+				alert('Error!: ' + error);
+			});
+
             var socket = io.connect();
             var player_id;
 
