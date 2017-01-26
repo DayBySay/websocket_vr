@@ -8,14 +8,14 @@
         <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
 		<script src="https://skyway.io/dist/0.3/peer.js"></script>
         <script type="text/javascript">
-			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-			var localStream;
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+var localStream;
 
-			navigator.getUserMedia({audio: true, video: false}, function(stream){
-				localStream = stream;
-			}, function(error) {
-				alert('Error!: ' + error);
-			});
+navigator.getUserMedia({audio: true, video: false}, function(stream){
+	localStream = stream;
+}, function(error) {
+	alert('Error!: ' + error);
+});
 
 var peer = new Peer({key: 'f42387e2-4c9f-4951-bce2-cc7802643eba'});
 var peer_id;
@@ -35,45 +35,45 @@ peer.on('call', function(call) {
 	});
 });
 
-            var socket = io.connect();
-            var player_id;
+var socket = io.connect();
+var player_id;
 
-            socket.on("set_player", function(player) {
-                player_id = player;
-                var playersCamera = document.querySelector("#" + player_id);
-                playersCamera.setAttribute("camera", "active", true);
-            });
-            
-            socket.on("click-square", function(square_id, player_id) {
-                click_square(square_id, player_id);
-            });
+socket.on("set_player", function(player) {
+	player_id = player;
+	var playersCamera = document.querySelector("#" + player_id);
+	playersCamera.setAttribute("camera", "active", true);
+});
 
-			socket.on("call", function(peer_id) {
-				let call = window.peer.call(peer_id, localStream)
+socket.on("click-square", function(square_id, player_id) {
+	click_square(square_id, player_id);
+});
 
-				call.on('stream', function(stream){
-					let audio = document.getElementById("audio");
-					audio.srcObject = stream;
-				});
-			});
-            
-            function login(peer_id) {
-                socket.emit("connected", peer_id);
-            }
-            
-            function click_square(square_id, player_id) {
-                var image = player_id === "player1" ? "#cross" : "#circle";
-                document.querySelector("#" + square_id).setAttribute("src", image);
-            }
-            
-            AFRAME.registerComponent('cursor-listener', {
-                init: function () {
-                    this.el.addEventListener("click", function (evt) {
-                        click_square(this.id, player_id);
-                        socket.emit("click-square", this.id, player_id);
-                    });
-                }
-            });
+socket.on("call", function(peer_id) {
+	let call = window.peer.call(peer_id, localStream)
+
+	call.on('stream', function(stream){
+		let audio = document.getElementById("audio");
+		audio.srcObject = stream;
+	});
+});
+
+function login(peer_id) {
+	socket.emit("connected", peer_id);
+}
+
+function click_square(square_id, player_id) {
+	var image = player_id === "player1" ? "#cross" : "#circle";
+	document.querySelector("#" + square_id).setAttribute("src", image);
+}
+
+AFRAME.registerComponent('cursor-listener', {
+	init: function () {
+		this.el.addEventListener("click", function (evt) {
+			click_square(this.id, player_id);
+			socket.emit("click-square", this.id, player_id);
+		});
+	}
+});
         </script>
     </head>
     <body>
