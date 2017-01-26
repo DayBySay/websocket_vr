@@ -32,6 +32,10 @@ peer.on('call', function(call) {
 	});
 });
 
+window.onbeforeunload = function(){
+	peer.disconnect();
+}
+
 var socket = io.connect();
 var player_id;
 
