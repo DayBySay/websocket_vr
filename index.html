@@ -6,6 +6,7 @@
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
         <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
         <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+		<script src="https://skyway.io/dist/0.3/peer.js"></script>
         <script type="text/javascript">
 			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 			var localStream;
@@ -15,6 +16,23 @@
 			}, function(error) {
 				alert('Error!: ' + error);
 			});
+
+var peer = new Peer({key: ''});
+var peerID;
+// var call = peer.call('dest-peer-id', localStream);
+
+peer.on('open', function(id) {
+	peerID = id;
+});
+
+peer.on('call', function(call) {
+	call.answer(localStream);
+
+	call.on('stream', function(stream) {
+	// `stream` is the MediaStream of the remote peer.
+	// Here you'd add it to an HTML video/canvas element.
+	});
+});
 
             var socket = io.connect();
             var player_id;
