@@ -19,7 +19,6 @@ navigator.getUserMedia({audio: true, video: false}, function(stream){
 
 var peer = new Peer({key: 'f42387e2-4c9f-4951-bce2-cc7802643eba'});
 var peer_id;
-// var call = peer.call('dest-peer-id', localStream);
 
 peer.on('open', function(id) {
 	peer_id = id;
@@ -28,8 +27,10 @@ peer.on('open', function(id) {
 
 peer.on('call', function(call) {
 	call.answer(localStream);
+	console.log("call answer");
 
 	call.on('stream', function(stream) {
+		console.log("call on");
 		let audio = document.getElementById("audio");
 		audio.srcObject = stream;
 	});
@@ -49,9 +50,11 @@ socket.on("click-square", function(square_id, player_id) {
 });
 
 socket.on("call", function(peer_id) {
-	let call = window.peer.call(peer_id, localStream)
+	console.log("call");
+	let call = window.peer.call(peer_id, localStream);
 
 	call.on('stream', function(stream){
+		console.log("call on");
 		let audio = document.getElementById("audio");
 		audio.srcObject = stream;
 	});
