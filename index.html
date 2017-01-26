@@ -49,7 +49,7 @@ peer.on('call', function(call) {
             });
 
 			socket.on("call", function(peer_id) {
-				let call = window.peer.call(peerId, localStream)
+				let call = window.peer.call(peer_id, localStream)
 
 				call.on('stream', function(stream){
 					let audio = document.getElementById("audio");
