@@ -1,6 +1,9 @@
 websocket_vr
 ======
 
+![マルバツゲーム](https://media.giphy.com/media/l0MYtJaZ7wJfXGwQE/giphy.gif)
+
+
 # 開発環境構築
 ```
 make install
