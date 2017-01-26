@@ -17,12 +17,13 @@
 				alert('Error!: ' + error);
 			});
 
-var peer = new Peer({key: ''});
-var peerID;
+var peer = new Peer({key: 'f42387e2-4c9f-4951-bce2-cc7802643eba'});
+var peer_id;
 // var call = peer.call('dest-peer-id', localStream);
 
 peer.on('open', function(id) {
-	peerID = id;
+	peer_id = id;
+	login(peer_id);
 });
 
 peer.on('call', function(call) {
@@ -47,8 +48,8 @@ peer.on('call', function(call) {
                 click_square(square_id, player_id);
             });
             
-            function login() {
-                socket.emit("connected");
+            function login(peer_id) {
+                socket.emit("connected", peer_id);
             }
             
             function click_square(square_id, player_id) {
@@ -64,8 +65,6 @@ peer.on('call', function(call) {
                     });
                 }
             });
-            
-            login();
         </script>
     </head>
     <body>
