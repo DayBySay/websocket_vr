@@ -18,10 +18,8 @@ navigator.getUserMedia({audio: true, video: false}, function(stream){
 });
 
 var peer = new Peer({key: 'f42387e2-4c9f-4951-bce2-cc7802643eba'});
-var peer_id;
 
 peer.on('open', function(id) {
-	peer_id = id;
 	login(peer_id);
 });
 
