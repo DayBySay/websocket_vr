@@ -30,8 +30,8 @@ peer.on('call', function(call) {
 	call.answer(localStream);
 
 	call.on('stream', function(stream) {
-	// `stream` is the MediaStream of the remote peer.
-	// Here you'd add it to an HTML video/canvas element.
+		let audio = document.getElementById("audio");
+		audio.srcObject = stream;
 	});
 });
 
@@ -47,6 +47,15 @@ peer.on('call', function(call) {
             socket.on("click-square", function(square_id, player_id) {
                 click_square(square_id, player_id);
             });
+
+			socket.on("call", function(peer_id) {
+				let call = window.peer.call(peerId, localStream)
+
+				call.on('stream', function(stream){
+					let audio = document.getElementById("audio");
+					audio.srcObject = stream;
+				});
+			});
             
             function login(peer_id) {
                 socket.emit("connected", peer_id);
@@ -68,8 +77,7 @@ peer.on('call', function(call) {
         </script>
     </head>
     <body>
-		<audio id="audio_player1" autoplay=true></audio>
-		<audio id="audio_player2" autoplay=true></audio>
+		<audio id="audio" autoplay=true></audio>
         <a-scene>
             <a-assets>
                 <img src="https://i.imgur.com/7YnjGfI.png" id="square" crossorigin="anonymous">
