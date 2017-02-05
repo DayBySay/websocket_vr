@@ -75,6 +75,32 @@ AFRAME.registerComponent('cursor-listener', {
 		});
 	}
 });
+
+var extId = "mjoglnmlnmefghllamlhhmfkjakjggja"
+function shareScreen() {
+    chrome.runtime.sendMessage(extId, { getStream: true},
+            function(response) {
+                navigator.webkitGetUserMedia({
+                    audio:false,
+                    video: { mandatory: { chromeMediaSource: "desktop",
+                        chromeMediaSourceId: response.mediaid } }
+                }, gotSharedScreenStream, getUserMediaError);
+            });
+}
+
+function gotSharedScreenStream(stream) {
+    var video = document.getElementById("sharedscreen");
+    video.src = URL.createObjectURL(stream);
+    localStream = stream;
+    stream.onended = function() { console.log("Ended"); };
+}
+
+function getUserMediaError(err) {
+    console.log("getUserMedia() failed.");
+    console.dir(err);
+}
+
+window.onload = shareScreen();
         </script>
     </head>
     <body>
@@ -84,6 +110,7 @@ AFRAME.registerComponent('cursor-listener', {
                 <img src="https://i.imgur.com/7YnjGfI.png" id="square" crossorigin="anonymous">
                 <img src="https://i.imgur.com/vxesSQm.png" id="circle" crossorigin="anonymous">
                 <img src="https://i.imgur.com/EdymqIg.png" id="cross" crossorigin="anonymous">
+                <video id="sharedscreen" autoplay=true></video>
             </a-assets>
             <a-camera position="0 1.6 -4" rotation="0 180 0" id="player1">
                 <a-cursor fuse=true fuse-timeout=1000></a-cursor>
@@ -95,6 +122,8 @@ AFRAME.registerComponent('cursor-listener', {
                 <a-cylinder color="#114499" ></a-cylinder>
                 <a-entity position="0 1 0" scale="3 3 0" rotation="0 180 0" bmfont-text="text: Player2; color: black;">
             </a-camera>
+
+            <a-video src="#sharedscreen" width="5" height="3.125" position="0 2.5 -2"></a-video>
 
             <a-sky color="#ECECEC"></a-sky>
             <a-entity id="square">
