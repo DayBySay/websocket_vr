@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Screen Capture",
+  "description": "",
+  "version": "1",
+  "background": {
+      "persistent": false,
+      "scripts": ["background.js"]
+  },
+  "externally_connectable": {
+      "matches": [ "*://localhost/*" ]
+   },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "desktopCapture"
+  ]
+}
